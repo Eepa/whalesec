@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  nginx-no-tls:
+    image: nginx:1.24.0-alpine
+    ports:
+    - 80:80
+    volumes:
+    - ../nginx-no-tls/nginx.conf.conf:/etc/nginx/templates/default.conf.conf
+    #If you want to enable debug log comment out next "command" line
+    #command: [nginx-debug, '-g', 'daemon off;']
+    environment:
+      # NOTE: overriding default template extension (.template) is to get nginx .conf syntax highlighting work out-of-the-box (.conf.conf is on purpose)
+      NGINX_ENVSUBST_TEMPLATE_SUFFIX: ".conf"
+      SERVER_DOMAIN: ${SERVER_DOMAIN}
+      BACKEND_SERVER: ${BACKEND_SERVER}
+      BACKEND_PORT: ${BACKEND_PORT}
+
