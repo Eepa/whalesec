@@ -20,10 +20,6 @@ public class GreetingController {
 
     @GetMapping("/")
     public String helloWhales() {
-
-        String originalInput = "\r\n";
-        String encodedString = Base64.getEncoder().encodeToString(originalInput.getBytes());
-
         return "Hello whales!";
     }
 
@@ -37,16 +33,17 @@ public class GreetingController {
         return greeting.getGreeting();
     }
 
-    @RequestMapping(method = RequestMethod.HEAD, path = "/greeting")
-    public String headGreeting(@RequestBody GreetingDto greeting) {
-        return greeting.getGreeting();
-    }
+    // You can comment out these if you want to test how the HEAD method works for the path "/greeting"
 
-    @GetMapping("/greeting")
-    public String getGreeting() {
-        return "Static greeting!";
-    }
-
+//    @RequestMapping(method = RequestMethod.HEAD, path = "/greeting")
+//    public String headGreeting(@RequestBody GreetingDto greeting) {
+//        return greeting.getGreeting();
+//    }
+//
+//    @GetMapping("/greeting")
+//    public String getGreeting() {
+//        return "Static greeting!";
+//    }
 
     @GetMapping("/echorequest")
     public HttpMessageDto echoRequest(HttpServletRequest request) {
