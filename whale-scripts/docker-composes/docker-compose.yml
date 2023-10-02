@@ -15,6 +15,26 @@ services:
       REDIRECT_PORT: ${WHALEBACK_REDIRECT_PORT}
       BACKEND_SERVER: ${BACKEND_SERVER}
       BACKEND_PORT: ${WHALEBACK_BACKEND_PORT}
+      REDIRECT_PATH: ${WHALEBACK_REDIRECT_PATH}
+      REDIRECT_URL: ${WHALEBACK_REDIRECT_URL}
+
+  nginx-no-tls-whalesec:
+    image: nginx:1.24.0-alpine
+    ports:
+    - 98:80
+    volumes:
+    - ../nginx-no-tls/nginx.conf.conf:/etc/nginx/templates/default.conf.conf
+    #If you want to enable debug log comment out next "command" line
+    #command: [nginx-debug, '-g', 'daemon off;']
+    environment:
+      # NOTE: overriding default template extension (.template) is to get nginx .conf syntax highlighting work out-of-the-box (.conf.conf is on purpose)
+      NGINX_ENVSUBST_TEMPLATE_SUFFIX: ".conf"
+      SERVER_DOMAIN: ${WHALESEC_SERVER_DOMAIN}
+      REDIRECT_PORT: ${WHALESEC_REDIRECT_PORT}
+      BACKEND_SERVER: ${BACKEND_SERVER}
+      BACKEND_PORT: ${WHALESEC_BACKEND_PORT}
+      REDIRECT_PATH: ${WHALEBACK_REDIRECT_PATH}
+      REDIRECT_URL: ${WHALEBACK_REDIRECT_URL}
 
   nginx-no-tls-catback:
     image: nginx:1.24.0-alpine
@@ -31,4 +51,23 @@ services:
       REDIRECT_PORT: ${CATBACK_REDIRECT_PORT}
       BACKEND_SERVER: ${BACKEND_SERVER}
       BACKEND_PORT: ${CATBACK_BACKEND_PORT}
+      REDIRECT_PATH: ${CATBACK_REDIRECT_PATH}
+      REDIRECT_URL: ${CATBACK_REDIRECT_URL}
 
+  nginx-no-tls-catsec:
+    image: nginx:1.24.0-alpine
+    ports:
+    - 99:80
+    volumes:
+    - ../nginx-no-tls/nginx.conf.conf:/etc/nginx/templates/default.conf.conf
+    #If you want to enable debug log comment out next "command" line
+    #command: [nginx-debug, '-g', 'daemon off;']
+    environment:
+      # NOTE: overriding default template extension (.template) is to get nginx .conf syntax highlighting work out-of-the-box (.conf.conf is on purpose)
+      NGINX_ENVSUBST_TEMPLATE_SUFFIX: ".conf"
+      SERVER_DOMAIN: ${CATSEC_SERVER_DOMAIN}
+      REDIRECT_PORT: ${CATSEC_REDIRECT_PORT}
+      BACKEND_SERVER: ${BACKEND_SERVER}
+      BACKEND_PORT: ${CATSEC_BACKEND_PORT}
+      REDIRECT_PATH: ${CATBACK_REDIRECT_PATH}
+      REDIRECT_URL: ${CATBACK_REDIRECT_URL}
