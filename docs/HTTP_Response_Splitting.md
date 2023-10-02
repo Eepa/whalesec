@@ -6,10 +6,10 @@
    - You can use incognito window to have a clean start 
    ```
    # This is a path without payload
-   $ http://whaleback.test.local/valaat/whales/1
+   $ http://whaleback.test.local:90/valaat/whales/1
    
    # This path contains a payload part
-   $ http://whaleback.test.local/valaat/whales/2%0d%0aSet-Cookie%3Asessiontoken%3D123ABC%3Bpath%3D%2F
+   $ http://catback.test.mau:91/valaat/cats/2%0d%0aSet-Cookie%3Asessiontoken%3D123ABC%3Bpath%3D%2F
    
    # The payload: %0d%0aSet-Cookie%3Asessiontoken%3D123ABC%3Bpath%3D%2F
    # %0d%0a = URL encoded "\r\n" (CRLF)
@@ -25,7 +25,7 @@
 4. Make a new GET request to a different path like following and observe the results: 
    ```
    # Use this path
-   $ http://whaleback.test.local/echorequest
+   $ http://whaleback.test.local:90/echorequest
    ```
    - Notice that the request has the cookie set which we set with the request with the payload
 

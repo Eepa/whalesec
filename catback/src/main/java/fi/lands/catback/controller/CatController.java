@@ -1,7 +1,7 @@
-package fi.lands.whaleback.controller;
+package fi.lands.catback.controller;
 
 import java.util.Map;
-import fi.lands.whaleback.configuration.LocalProperties;
+import fi.lands.catback.configuration.LocalProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,46 +10,43 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller
-public class WhaleController {
+public class CatController {
 
-    private final Map<String, String> whales;
+    private final Map<String, String> cats;
 
     private final LocalProperties localProperties;
 
-    public WhaleController(LocalProperties localProperties) {
+    public CatController(LocalProperties localProperties) {
         this.localProperties = localProperties;
-        this.whales = Map.of("1", "Miekkavalas", "2", "Sinivalas",
-            "3", "Ryhävalas", "4", "Maitovalas");
+        this.cats = Map.of("1", "Kotikissa", "2", "Egyptinmau",
+            "3", "Siperiankissa", "4", "Pyhä Birma");
     }
 
-    @GetMapping("/whale")
-    public String whalePage() {
-        return "whale.html";
+
+    @GetMapping("/cat")
+    public String catPage() {
+        return "cat.html";
     }
 
-    @GetMapping("/whalecat")
-    public String whaleCatPage() {
-        return "whale_cat.html";
-    }
-
-    @GetMapping("/whales/{id}")
+    @GetMapping("/cats/{id}")
     public ResponseEntity<String> getWhale(@PathVariable String id) {
 
-        if (id == null || !whales.containsKey(id)) {
+        if (id == null || !cats.containsKey(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(whales.get(id), HttpStatus.OK);
+        return new ResponseEntity<>(cats.get(id), HttpStatus.OK);
     }
 
-    // http://whaleback.test.local/whales/lowercase/2%0d%0aSet-Cookie%3Asessiontoken%3D123ABC
+    // http://whaleback.test.local/cats/lowercase/2%0d%0aSet-Cookie%3Asessiontoken%3D123ABC
     // Tomcat saves us from HTTP Response Splitting
     // It is not a good practice to use user input directly in constructing the redirection path
-    @GetMapping("/whales/lowercase/{id}")
+    @GetMapping("/cats/lowercase/{id}")
     public String getWhaleRedirect(@PathVariable String id) {
-        String path = "/whales/" + id;
+        String path = "/cats/" + id;
         String redirectUrl = "http://" + localProperties.getDomain();
         return "redirect:" + redirectUrl + path;
     }
+
 
 }
